@@ -1,9 +1,9 @@
 import { useState, createContext, useContext, useEffect } from "react";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
-import { FBCtx } from "./FirebaseProvider";
+import { FBCtx } from "./FBProvider";
 
-export const AuthContext = createContext();
+export const FBAuthContext = createContext();
 
 const FBAuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -77,7 +77,9 @@ const FBAuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={theValues}>{children}</AuthContext.Provider>
+    <FBAuthContext.Provider value={theValues}>
+      {children}
+    </FBAuthContext.Provider>
   );
 };
 

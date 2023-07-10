@@ -6,8 +6,8 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
 
-import { FBProvider } from "./firebase/FBProvider.jsx";
-import { FBAuthProvider } from "./firebase/FBAuthProvider.jsx";
+import FBProvider from "./firebase/FBProvider.jsx";
+import FBAuthProvider from "./firebase/FBAuthProvider.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

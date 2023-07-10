@@ -8,7 +8,10 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<h1>Home</h1>} />
+      <Route
+        path="/"
+        element={<h1 className="text-3xl font-bold underline">Home</h1>}
+      />
     </Routes>
   );
 }
