@@ -1,7 +1,6 @@
-import { useState, useRef } from "react";
-import Button from "../UI/Button";
 import Card from "../UI/Card";
-import Input, { PasswordInput } from "../UI/Input";
+import Button from "../UI/Button";
+import DynamicInput, { PasswordInput } from "../UI/Input";
 
 const Form = ({
   fields,
@@ -10,66 +9,53 @@ const Form = ({
   onSubmit,
   title,
 }) => {
-  const [error, setError] = useState(null);
-  const refs = useRef({});
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    setError(null);
-
-    const formData = {};
-
-    fields.forEach((field) => {
-      const { name } = field;
-      formData[name] = refs.current[name].value.trim();
-      refs.current[name].value = "";
-    });
-
-    if (validateForm(formData)) {
-      onSubmit(formData);
-    }
-  };
-
-  const validateForm = (formData) => {
-    for (const key in formData) {
-      if (formData[key] === "") {
-        setError("Please fill in all fields");
-        return false;
-      }
-    }
-    return true;
-  };
-
   return (
-    <Card className="w-1/2 mx-auto">
-      <h2 className="text-center mb-4">{title}</h2>
+    <Card className="w-1/3 min-w-[20rem] mx-auto">
+      <h2 className="text-center mb-4 text-lg font-bold">{title}</h2>
 
-      <form className="flex flex-col gap-4" onSubmit={handleFormSubmit}>
-        {error && <p className="text-red-500">{error}</p>}
+      <form className="flex flex-col gap-4" onSubmit={onSubmit}>
         {fields.map((field) => {
-          const { name, type, placeholder } = field;
-          return type === "password" ? (
-            <PasswordInput
-              key={name}
-              placeholder={placeholder}
-              ref={(el) => (refs.current[name] = el)}
-            />
+          const { key, value, validValue, error, onChange, onBlur, ...rest } =
+            field;
+
+          const inputProps = {
+            key,
+            value,
+            onChange,
+            onBlur,
+            error,
+            valid: validValue,
+            ...rest,
+          };
+
+          return field.type === "password" ? (
+            <div key={key}>
+              <PasswordInput {...inputProps} />
+              {error && <p className="text-red-500">{inputProps.errmsg}</p>}
+            </div>
           ) : (
-            <Input
-              key={name}
-              type={type}
-              placeholder={placeholder}
-              ref={(el) => (refs.current[name] = el)}
-            />
+            <div key={key}>
+              <DynamicInput {...inputProps} />
+              {error && <p className="text-red-500">{inputProps.errmsg}</p>}
+            </div>
           );
         })}
-        <Button type="submit">{submitButtonText}</Button>
-        {additionalButtons &&
-          additionalButtons.map((button, index) => (
-            <Button key={index} type={button.type} onClick={button.onClick}>
-              {button.label}
-            </Button>
-          ))}
+        <div className="flex flex-col xl:flex-row gap-2">
+          <Button type="submit" className="flex-1">
+            {submitButtonText}
+          </Button>
+          {additionalButtons &&
+            additionalButtons.map((button, index) => (
+              <Button
+                key={index}
+                type={button.type}
+                onClick={button.onClick}
+                className="flex-1"
+              >
+                {button.label}
+              </Button>
+            ))}
+        </div>
       </form>
     </Card>
   );
