@@ -28,8 +28,8 @@ const AccessPage = () => {
         <div className="w-full lg:w-2/3 lg:flex">
           <div className="w-full xl:w-1/2 flex justify-center mb-4 lg:h-full">
             <div className="rounded-lg overflow-hidden max-w-[35rem] w-full object-cover lg:mr-4 sm:mr-0 lg:min-h-[35rem] h-40 lg:rounded-full text-center drop-shadow-xl">
-              <h1 className="font-bold lg:text-xl text-2xl mb-2 text-white tracking-wide">
-                OmniMarket
+              <h1 className="font-bold lg:text-xl text-2xl mb-2 text-white tracking-wide mt-2">
+                Omni Market
               </h1>
               <img
                 src={knollingImage}
