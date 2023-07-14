@@ -6,29 +6,27 @@ import Form from "./Form";
 import { validateEmail } from "../../utils/Validators";
 import inputConstructor from "../../helper/useInputConstrutor";
 import getFieldValue from "../../helper/getFieldHelper";
+import { FBAuthContext } from "../../firebase/FBAuthProvider";
 
 const ForgotPassForm = ({ openForgotForm }) => {
   const { auth } = useContext(FBCtx);
+  const { setError } = useContext(FBAuthContext);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
-    const emailValid = getFieldValue(fields, "email", "error");
-
-    if (emailValid) {
-      throw new Error("Invalid form");
-    }
+    setError(null);
 
     const email = getFieldValue(fields, "email", "value");
 
     try {
       await sendPasswordResetEmail(auth, email);
     } catch (err) {
-      console.log("err", err);
+      setError(err.message);
     }
   };
 
   const toggleShowForgotPassForm = () => {
+    setError(null);
     openForgotForm();
   };
 
@@ -50,6 +48,7 @@ const ForgotPassForm = ({ openForgotForm }) => {
       label: "Sign In",
       type: "button",
       onClick: toggleShowForgotPassForm,
+      className: "min-w-[8rem] max-h-[2.5rem]",
     },
   ];
 

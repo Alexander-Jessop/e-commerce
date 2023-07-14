@@ -16,13 +16,13 @@ import getFieldValue from "../../helper/getFieldHelper";
 
 const SignUpForm = ({ switchForm }) => {
   const { auth } = useContext(FBCtx);
-  const { login, setUserData } = useContext(FBAuthContext);
+  const { login, setUserData, setError } = useContext(FBAuthContext);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    setError(null);
 
     const fNameValid = getFieldValue(fields, "firstName", "error");
-    console.log("fNameValid", fNameValid);
     const lNameValid = getFieldValue(fields, "lastName", "error");
     const emailValid = getFieldValue(fields, "email", "error");
     const passwordValid = getFieldValue(fields, "password", "error");
@@ -60,11 +60,12 @@ const SignUpForm = ({ switchForm }) => {
 
       await login(email, password);
     } catch (err) {
-      console.log(err);
+      setError(err.message);
     }
   };
 
   const navigateHandler = () => {
+    setError(null);
     switchForm();
   };
 
@@ -138,6 +139,7 @@ const SignUpForm = ({ switchForm }) => {
       label: "Have an account? Sign In",
       type: "button",
       onClick: navigateHandler,
+      className: "min-w-[8rem] max-h-[2.5rem]",
     },
   ];
 

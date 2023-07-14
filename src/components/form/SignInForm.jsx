@@ -7,16 +7,11 @@ import inputConstructor from "../../helper/useInputConstrutor";
 import getFieldValue from "../../helper/getFieldHelper";
 
 const SignInForm = ({ switchForm, openForgotForm }) => {
-  const { login } = useContext(FBAuthContext);
+  const { login, setError } = useContext(FBAuthContext);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
-    const emailValid = getFieldValue(fields, "email", "error");
-
-    if (emailValid) {
-      throw new Error("Invalid form");
-    }
+    setError(null);
 
     const email = getFieldValue(fields, "email", "value");
     const password = getFieldValue(fields, "password", "value");
@@ -24,11 +19,12 @@ const SignInForm = ({ switchForm, openForgotForm }) => {
     try {
       await login(email, password);
     } catch (err) {
-      console.log(err);
+      setError(err.message);
     }
   };
 
   const openForgotPassForm = () => {
+    setError(null);
     openForgotForm();
   };
 
@@ -65,11 +61,13 @@ const SignInForm = ({ switchForm, openForgotForm }) => {
       label: "Forgot Password?",
       type: "button",
       onClick: openForgotPassForm,
+      className: "min-w-[8rem] max-h-[2.5rem]",
     },
     {
       label: "Register Account",
       type: "button",
       onClick: switchForm,
+      className: "min-w-[8rem] max-h-[2.5rem]",
     },
   ];
 

@@ -11,7 +11,7 @@ const DynamicInput = ({
   error,
   className,
 }) => {
-  const baseStyle = "bg-gray-200 border border-gray-300 rounded py-2 px-4";
+  const baseStyle = "bg-gray-200 border rounded py-2 px-4";
   const errorStyle =
     "border-red-500 bg-red-100 focus:ring-red-500 focus:border-red-500";
   const classes = className ? `${baseStyle} ${className}` : baseStyle;

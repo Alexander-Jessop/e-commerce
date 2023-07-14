@@ -1,6 +1,6 @@
 const Button = ({ children, className, ...restProps }) => {
   const style =
-    "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded";
+    "bg-primary hover:bg-secondary text-white hover:font-bold py-2 px-4 rounded";
   const classes = className ? style + " " + className : style;
 
   return (

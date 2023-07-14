@@ -10,6 +10,8 @@ const FBAuthProvider = ({ children }) => {
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState(null);
 
+  console.log("error", error);
+
   const { auth, db } = useContext(FBCtx);
 
   const login = async (email, password) => {
@@ -23,6 +25,7 @@ const FBAuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
+    setError(null);
     try {
       await signOut(auth);
       setUser(null);
@@ -32,16 +35,17 @@ const FBAuthProvider = ({ children }) => {
   };
 
   const setUserData = async (user, userData) => {
+    setError(null);
     try {
       const newDoc = await setDoc(doc(db, "users", user.uid), userData);
       return newDoc;
     } catch (err) {
       setError(err.message);
-      return false;
     }
   };
 
   const updateUserField = async (fieldName, value) => {
+    setError(null);
     try {
       const userRef = doc(db, "users", user.uid);
       await updateDoc(userRef, { [fieldName]: value });
@@ -70,6 +74,7 @@ const FBAuthProvider = ({ children }) => {
     user,
     profile,
     error,
+    setError,
     login,
     logout,
     setUserData,
