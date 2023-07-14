@@ -64,7 +64,7 @@ const FBAuthProvider = ({ children }) => {
 
       fetchUserProfile();
     }
-  }, [user]);
+  }, [user, db]);
 
   const theValues = {
     user,

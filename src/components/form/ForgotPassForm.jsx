@@ -1,13 +1,14 @@
 import { useContext } from "react";
+import { sendPasswordResetEmail } from "firebase/auth";
 
-import { FBAuthContext } from "../../firebase/FBAuthProvider";
+import { FBCtx } from "../../firebase/FBProvider";
 import Form from "./Form";
 import { validateEmail } from "../../utils/Validators";
 import inputConstructor from "../../helper/useInputConstrutor";
 import getFieldValue from "../../helper/getFieldHelper";
 
-const SignInForm = ({ switchForm, openForgotForm }) => {
-  const { login } = useContext(FBAuthContext);
+const ForgotPassForm = ({ openForgotForm }) => {
+  const { auth } = useContext(FBCtx);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -19,24 +20,19 @@ const SignInForm = ({ switchForm, openForgotForm }) => {
     }
 
     const email = getFieldValue(fields, "email", "value");
-    const password = getFieldValue(fields, "password", "value");
 
     try {
-      await login(email, password);
+      await sendPasswordResetEmail(auth, email);
     } catch (err) {
-      console.log(err);
+      console.log("err", err);
     }
   };
 
-  const openForgotPassForm = () => {
+  const toggleShowForgotPassForm = () => {
     openForgotForm();
   };
 
-  const nullValidator = () => {
-    return true;
-  };
-
-  const fieldData = [
+  const fildData = [
     {
       name: "email",
       type: "email",
@@ -47,46 +43,30 @@ const SignInForm = ({ switchForm, openForgotForm }) => {
         className: "w-full",
       },
     },
+  ];
+
+  const addtionalButtons = [
     {
-      name: "password",
-      type: "password",
-      placeholder: "Password",
-      validateValue: nullValidator,
-      additionalProps: {
-        errmsg:
-          "Password is invalid. Forgotten your password? Click button below",
-        className: "w-full",
-      },
+      label: "Sign In",
+      type: "button",
+      onClick: toggleShowForgotPassForm,
     },
   ];
 
-  const additionalButtons = [
-    {
-      label: "Forgot Password?",
-      type: "button",
-      onClick: openForgotPassForm,
-    },
-    {
-      label: "Register Account",
-      type: "button",
-      onClick: switchForm,
-    },
-  ];
-
-  const fields = fieldData.map(
+  const fields = fildData.map(
     ({ name, type, placeholder, validateValue, additionalProps }) =>
       inputConstructor(name, type, placeholder, validateValue, additionalProps)
   );
 
   return (
     <Form
-      title="Sign In"
+      title="Reset Password"
       fields={fields}
-      submitButtonText="Submit"
-      additionalButtons={additionalButtons}
+      submitButtonText="Send Reset Email"
+      additionalButtons={addtionalButtons}
       onSubmit={handleFormSubmit}
     />
   );
 };
 
-export default SignInForm;
+export default ForgotPassForm;
