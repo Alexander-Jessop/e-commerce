@@ -27,7 +27,7 @@ const AccessPage = () => {
       <div className="flex justify-center items-center flex-1">
         <div className="w-full lg:w-2/3 lg:flex">
           <div className="w-full xl:w-1/2 flex justify-center mb-4 lg:h-full">
-            <div className="rounded-lg overflow-hidden max-w-[35rem] w-full object-cover lg:mr-4 sm:mr-0 lg:min-h-[35rem] h-40 lg:rounded-full text-center drop-shadow-xl">
+            <div className="rounded-lg overflow-hidden max-w-[40rem] w-full object-cover lg:mr-4 sm:mr-0 lg:min-h-[35rem] h-40 lg:rounded-full text-center drop-shadow-xl">
               <h1 className="font-bold lg:text-xl text-2xl mb-2 text-white tracking-wide mt-2">
                 Omni Market
               </h1>
@@ -39,7 +39,7 @@ const AccessPage = () => {
             </div>
           </div>
           <div className="w-full lg:w-1/2 flex justify-center items-center">
-            <Card className="bg-white w-full min-w-[25rem] max-w-[35rem] lg:ml-8">
+            <Card className="bg-white w-full min-w-[25rem] max-w-[40rem] lg:ml-16">
               {showForgotPassForm ? (
                 <ForgotPassForm openForgotForm={openForgotPassForm} />
               ) : showSignInForm ? (
