@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { FBAuthContext } from "../../firebase/FBAuthProvider";
 import Form from "./Form";
@@ -6,8 +7,9 @@ import { validateEmail } from "../../utils/Validators";
 import inputConstructor from "../../helper/useInputConstrutor";
 import getFieldValue from "../../helper/getFieldHelper";
 
-const SignInForm = ({ switchForm, openForgotForm }) => {
+const SignInForm = ({ switchForm, openForgotForm, redirect }) => {
   const { login, setError } = useContext(FBAuthContext);
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -18,6 +20,7 @@ const SignInForm = ({ switchForm, openForgotForm }) => {
 
     try {
       await login(email, password);
+      redirect ? navigate("/product/" + redirect) : navigate("/");
     } catch (err) {
       setError(err.message);
     }

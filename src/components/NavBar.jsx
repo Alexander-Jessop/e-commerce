@@ -21,7 +21,7 @@ const NavBar = ({ user, logout, toggleModal }) => {
   };
 
   return (
-    <nav className="fixed top-0 z-50 w-full bg-secondary-800 p-4 text-primary-50">
+    <nav className="fixed top-0 z-50 w-full bg-secondary p-4 text-primary-50">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <ul className="flex space-x-4">

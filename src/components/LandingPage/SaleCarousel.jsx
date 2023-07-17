@@ -1,33 +1,24 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
-import axios from "axios";
-import Card from "./UI/Card";
-import RanNumGen from "../utils/RanNumGen";
-import Button from "./UI/Button";
+import Card from "../UI/Card";
+import Button from "../UI/Button";
 
-const SaleCarousel = () => {
-  const [carouselProducts, setCarouselProducts] = useState([]);
+const SaleCarousel = ({ carouselProducts }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const intervalRef = useRef(null);
 
-  useEffect(() => {
-    const fetchCarouselProducts = async () => {
-      try {
-        const response = await axios.get("https://fakestoreapi.com/products");
-        const allProducts = response.data;
+  const navigate = useNavigate();
 
-        const randomNumbers = RanNumGen(0, allProducts.length - 1, 5);
-        const selectedProducts = randomNumbers.map((num) => allProducts[num]);
-
-        setCarouselProducts(selectedProducts);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-
-    fetchCarouselProducts();
-  }, []);
+  const handleBuyNow = (e) => {
+    e.preventDefault();
+    const selectedProduct = carouselProducts[currentIndex];
+    const productId = selectedProduct.id;
+    const salePrice = (selectedProduct.price * 0.7).toFixed(2);
+    const state = { salePrice };
+    navigate(`/product/${productId}`, { state });
+  };
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
@@ -53,9 +44,17 @@ const SaleCarousel = () => {
       showStatus={false}
     >
       {carouselProducts.map((product) => (
-        <Card key={product.id} className="w-80 h-full">
-          <h2 className="text-xl font-bold mb-4">{product.title}</h2>
-          <div className="h-44 overflow-hidden">
+        <Card key={product.id} className="w-full h-full">
+          <h2
+            className="text-xl font-bold mb-4 cursor-pointer"
+            onClick={handleBuyNow}
+          >
+            {product.title}
+          </h2>
+          <div
+            className="h-44 overflow-hidden cursor-pointer"
+            onClick={handleBuyNow}
+          >
             <img
               src={product.image}
               alt={product.title}
@@ -77,7 +76,9 @@ const SaleCarousel = () => {
               </p>
             </div>
             <div className="mt-auto">
-              <Button className="mt-2">Buy Now</Button>
+              <Button className="mt-2" onClick={handleBuyNow}>
+                Buy Now
+              </Button>
             </div>
           </div>
         </Card>

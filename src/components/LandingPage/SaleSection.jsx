@@ -1,6 +1,6 @@
 import SaleCarousel from "./SaleCarousel";
 
-const SaleSection = () => {
+const SaleSection = ({ carouselProducts }) => {
   return (
     <section className="bg-gray-100 py-8 p-16">
       <div className="container mx-auto flex flex-col sm:flex-row">
@@ -13,7 +13,7 @@ const SaleSection = () => {
           </p>
         </div>
         <div className="w-full sm:w-1/2 mt-4 sm:mt-0">
-          <SaleCarousel />
+          <SaleCarousel carouselProducts={carouselProducts} />
         </div>
       </div>
     </section>

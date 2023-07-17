@@ -10,8 +10,6 @@ const FBAuthProvider = ({ children }) => {
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState(null);
 
-  console.log("error", error);
-
   const { auth, db } = useContext(FBCtx);
 
   const login = async (email, password) => {

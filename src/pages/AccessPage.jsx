@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { useLocation } from "react-router-dom";
 import SignInForm from "../components/form/SignInForm";
 import SignUpForm from "../components/form/SignUpForm";
 import ForgotPassForm from "../components/form/ForgotPassForm";
@@ -7,7 +8,10 @@ import knollingImage from "../assets/u0hlhegr.png";
 import { FBAuthContext } from "../firebase/FBAuthProvider";
 
 const AccessPage = () => {
-  const [showSignInForm, setShowSignInForm] = useState(false);
+  const location = useLocation();
+  const [showSignInForm, setShowSignInForm] = useState(
+    location?.state?.showSignInForm || false
+  );
   const [showForgotPassForm, setShowForgotPassForm] = useState(false);
 
   const { setError } = useContext(FBAuthContext);
@@ -46,6 +50,7 @@ const AccessPage = () => {
                 <SignInForm
                   switchForm={toggleSignInForm}
                   openForgotForm={openForgotPassForm}
+                  redirect={location?.state?.productId}
                 />
               ) : (
                 <SignUpForm switchForm={toggleSignInForm} />
