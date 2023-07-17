@@ -1,7 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import NavBarLink from "./UI/NavBarLink";
+import CartIcon from "./cart/CartIcon";
 
-const NavBar = ({ user, logout }) => {
+const NavBar = ({ user, logout, toggleModal }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -22,7 +23,7 @@ const NavBar = ({ user, logout }) => {
   return (
     <nav className="fixed top-0 z-50 w-full bg-secondary-800 p-4 text-primary-50">
       <div className="flex items-center justify-between">
-        <div>
+        <div className="flex items-center">
           <ul className="flex space-x-4">
             {routes.map((route, index) => (
               <li key={index}>
@@ -42,8 +43,8 @@ const NavBar = ({ user, logout }) => {
         <div className="flex items-center space-x-4">
           {!user && (
             <NavBarLink
-              path="/login"
-              name="LOGIN"
+              path="/user-auth"
+              name="CREATE ACCOUNT"
               className={`${
                 location.pathname === "/login"
                   ? "border-b-2 border-secondary text-white"
@@ -65,6 +66,12 @@ const NavBar = ({ user, logout }) => {
               <NavBarLink onClick={handleLogout} name="LOGOUT" />
             </>
           )}
+          <div
+            className="rounded-full p-2 cursor-pointer"
+            onClick={toggleModal}
+          >
+            <CartIcon />
+          </div>
         </div>
       </div>
     </nav>
