@@ -3,7 +3,6 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import { FBAuthContext } from "../../firebase/FBAuthProvider";
-
 import ProductReview from "./ProductReview";
 import Button from "../UI/Button";
 
@@ -11,8 +10,9 @@ const SingleProduct = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [wishListErr, setWishListErr] = useState(false);
+  const [isInWishlist, setIsInWishlist] = useState(false);
 
-  const { user } = useContext(FBAuthContext);
+  const { user, profile, toggleWishlist } = useContext(FBAuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const salePrice = location.state?.salePrice;
@@ -32,10 +32,28 @@ const SingleProduct = () => {
     fetchProduct();
   }, [id]);
 
+  useEffect(() => {
+    // Check if the product is in the wishlist
+    setIsInWishlist(
+      user && profile && profile.wishlist && profile.wishlist.includes(id)
+    );
+  }, [id, user, profile]);
+
   const handleWishList = async (e) => {
     e.preventDefault();
     if (!user) {
       setWishListErr(true);
+    } else {
+      try {
+        if (isInWishlist) {
+          await toggleWishlist(+id, "remove");
+        } else {
+          await toggleWishlist(+id, "add");
+        }
+        setIsInWishlist(!isInWishlist);
+      } catch (error) {
+        console.error("Error toggling wishlist:", error);
+      }
     }
   };
 
@@ -44,6 +62,10 @@ const SingleProduct = () => {
     const state = { showSignInForm: true, productId };
     navigate("/user-auth", { state });
   };
+  if (!product) {
+    return <div>Loading...</div>;
+  }
+
   if (!product) {
     return <div>Loading...</div>;
   }
@@ -83,10 +105,12 @@ const SingleProduct = () => {
                   Add to Cart
                 </Button>
                 <Button
-                  className="bg-primary hover:bg-secondary text-white py-2 px-4 rounded min-w-[10rem]"
+                  className={`bg-primary hover:bg-secondary text-white py-2 px-4 rounded min-w-[13rem] ${
+                    isInWishlist ? "bg-red-500" : ""
+                  }`}
                   onClick={handleWishList}
                 >
-                  Add to Wishlist
+                  {isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
                 </Button>
               </div>
             </div>

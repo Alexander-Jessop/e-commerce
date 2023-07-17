@@ -63,12 +63,13 @@ const SelectCategory = () => {
   }
 
   const handleViewProducts = (cat) => {
-    console.log("cat", cat);
-    navigate(`/products/${cat}`);
+    const cleanedCategory = cat.replace(/[^\w\s]/gi, "&apos;");
+    const formattedCategory = cleanedCategory.replace(/\s+/g, "-");
+    navigate(`/products/${formattedCategory}`);
   };
 
   return (
-    <Card>
+    <div className="container mx-auto py-8">
       <h2 className="text-2xl font-bold mb-4">Shop by Category</h2>
       <hr />
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
@@ -105,7 +106,7 @@ const SelectCategory = () => {
           <p>No categories available</p>
         )}
       </div>
-    </Card>
+    </div>
   );
 };
 

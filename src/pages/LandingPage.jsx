@@ -8,7 +8,7 @@ import SaleSection from "../components/LandingPage/SaleSection";
 import SelectCatagory from "../components/LandingPage/SelectCategory";
 import TrendingSection from "../components/LandingPage/TrendingSection";
 import RanNumGen from "../utils/RanNumGen";
-import WatchList from "../components/LandingPage/WatchList";
+import WishList from "../components/LandingPage/WishList";
 
 const LandingPage = () => {
   const { user } = useContext(FBAuthContext);
@@ -43,7 +43,7 @@ const LandingPage = () => {
       <SaleSection carouselProducts={carouselProducts} />
       <SelectCatagory />
       <TrendingSection trendingProducts={trendingProducts} />
-      {user && <WatchList user={user} />}
+      {user && <WishList />}
     </>
   );
 };

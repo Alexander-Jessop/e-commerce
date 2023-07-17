@@ -25,7 +25,6 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/products/:category" element={<CategoryPage />} />
-
         <Route path="/user-auth" element={<AccessPage />} />
       </Routes>
     </>
