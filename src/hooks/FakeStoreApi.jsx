@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 
-const useFakeStoreApi = (apiUrl) => {
+const FakeStoreApi = (apiUrl) => {
   const fetchApiData = async () => {
     const response = await axios.get(apiUrl);
     return response.data;
@@ -10,4 +10,4 @@ const useFakeStoreApi = (apiUrl) => {
   return useQuery(apiUrl, fetchApiData);
 };
 
-export default useFakeStoreApi;
+export default FakeStoreApi;

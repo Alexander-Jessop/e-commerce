@@ -32,7 +32,7 @@ const NavBar = ({ user, logout, toggleModal }) => {
                   name={route.name.toUpperCase()}
                   className={`${
                     location.pathname === route.path
-                      ? "border-b-2 border-secondary text-white"
+                      ? "border-b-2 border-secondary text-selected"
                       : "border-b-2 border-transparent hover:border-accent"
                   } sm:mx-6`}
                 />
@@ -47,7 +47,7 @@ const NavBar = ({ user, logout, toggleModal }) => {
               name="CREATE ACCOUNT"
               className={`${
                 location.pathname === "/login"
-                  ? "border-b-2 border-secondary text-white"
+                  ? "border-b-2 border-secondary text-selected"
                   : "border-b-2 border-transparent hover:border-accent"
               } sm:mx-6`}
             />
@@ -59,7 +59,7 @@ const NavBar = ({ user, logout, toggleModal }) => {
                 name="PROFILE"
                 className={`${
                   location.pathname === "/profile"
-                    ? "border-b-2 border-secondary text-white"
+                    ? "border-b-2 border-secondary text-selected"
                     : "border-b-2 border-transparent hover:border-accent"
                 }`}
               />

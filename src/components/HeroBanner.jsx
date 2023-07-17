@@ -13,7 +13,7 @@ const HeroBanner = () => {
             all types of amazing products.
           </p>
           <Button className="font-semibold px-6 py-3 mt-8 hover:bg-secondary hover:text-primary transition duration-300">
-            Learn More
+            Shop Now
           </Button>
         </div>
       </div>
