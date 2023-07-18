@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"; // Import useEffect hook
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { FBAuthContext } from "../../firebase/FBAuthProvider";

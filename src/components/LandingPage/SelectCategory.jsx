@@ -72,12 +72,12 @@ const SelectCategory = () => {
     <div className="container mx-auto py-8">
       <h2 className="text-2xl font-bold mb-4">Shop by Category</h2>
       <hr />
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8">
         {catList.length > 0 ? (
           catList.map((cat, index) => (
             <Card
               key={cat}
-              className="p-4 flex flex-col items-center justify-center"
+              className="p-4 flex flex-col items-center justify-between"
             >
               <h3
                 className="text-xl font-bold mb-2 capitalize cursor-pointer"
@@ -95,7 +95,7 @@ const SelectCategory = () => {
                 <p>No products available</p>
               )}
               <button
-                className="bg-primary hover:bg-secondary hover:font-bold text-white py-2 px-4 rounded self-center mt-auto"
+                className="bg-primary hover:bg-secondary hover:font-bold text-white py-2 px-4 rounded mt-auto"
                 onClick={() => handleViewProducts(cat)}
               >
                 View Products

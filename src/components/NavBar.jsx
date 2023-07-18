@@ -55,15 +55,20 @@ const NavBar = ({ user, logout, toggleModal }) => {
           {user && (
             <>
               <NavBarLink
-                path="/profile"
+                path="/user-profile"
                 name="PROFILE"
                 className={`${
-                  location.pathname === "/profile"
+                  location.pathname === "/user-profile"
                     ? "border-b-2 border-secondary text-selected"
                     : "border-b-2 border-transparent hover:border-accent"
                 }`}
               />
-              <NavBarLink onClick={handleLogout} name="LOGOUT" />
+              <button
+                onClick={handleLogout}
+                className={"border-b-2 border-transparent hover:border-accent"}
+              >
+                LOGOUT
+              </button>
             </>
           )}
           <div

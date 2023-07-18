@@ -1,5 +1,5 @@
 import { useState, createContext, useContext, useEffect } from "react";
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut, deleteUser } from "firebase/auth";
 import {
   doc,
   setDoc,
@@ -25,6 +25,12 @@ const FBAuthProvider = ({ children }) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setUser(auth.currentUser);
+
+      const expirationDate = new Date(
+        new Date().getTime() + 24 * 60 * 60 * 1000
+      );
+      localStorage.setItem("user", JSON.stringify(auth.currentUser));
+      localStorage.setItem("expirationDate", expirationDate.toISOString());
     } catch (err) {
       setError(err.message);
     }
@@ -35,6 +41,8 @@ const FBAuthProvider = ({ children }) => {
     try {
       await signOut(auth);
       setUser(null);
+      localStorage.removeItem("user");
+      localStorage.removeItem("expirationDate");
     } catch (err) {
       setError(err.message);
     }
@@ -79,6 +87,31 @@ const FBAuthProvider = ({ children }) => {
     }
   };
 
+  const deleteProfile = async () => {
+    setError(null);
+    try {
+      if (user) {
+        const userRef = doc(db, "users", user.uid);
+        await signOut(auth);
+        await deleteUser(userRef);
+
+        setUser(null);
+        localStorage.removeItem("user");
+        localStorage.removeItem("expirationDate");
+      }
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const expirationDate = new Date(localStorage.getItem("expirationDate"));
+    if (storedUser && expirationDate && expirationDate > new Date()) {
+      setUser(storedUser);
+    }
+  }, []);
+
   useEffect(() => {
     if (user) {
       const fetchUserProfile = async () => {
@@ -113,6 +146,7 @@ const FBAuthProvider = ({ children }) => {
     setUserData,
     updateUserField,
     toggleWishlist,
+    deleteProfile,
   };
 
   return (

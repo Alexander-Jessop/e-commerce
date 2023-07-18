@@ -33,7 +33,6 @@ const SingleProduct = () => {
   }, [id]);
 
   useEffect(() => {
-    // Check if the product is in the wishlist
     setIsInWishlist(
       user && profile && profile.wishlist && profile.wishlist.includes(id)
     );

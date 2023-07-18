@@ -8,6 +8,7 @@ import AccessPage from "./pages/AccessPage";
 import LandingPage from "./pages/LandingPage";
 import ProductPage from "./pages/ProductPage";
 import CategoryPage from "./pages/CategoryPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   const { user, logout } = useContext(FBAuthContext);
@@ -26,6 +27,7 @@ function App() {
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/products/:category" element={<CategoryPage />} />
         <Route path="/user-auth" element={<AccessPage />} />
+        <Route path="/user-profile" element={<ProfilePage />} />
       </Routes>
     </>
   );
