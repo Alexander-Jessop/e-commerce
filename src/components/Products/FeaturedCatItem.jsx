@@ -14,7 +14,10 @@ const FeaturedCatItem = ({ featuredItem }) => {
         <div className="mb-6">
           <div className="flex justify-center">
             <div className="w-full h-full bg-gray-100 rounded-lg shadow-lg p-6 flex items-center">
-              <div className="flex-shrink-0">
+              <div
+                className="flex-shrink-0 cursor-pointer"
+                onClick={() => handleBuyNow(featuredItem.id)}
+              >
                 <img
                   src={featuredItem.image}
                   alt={featuredItem.title}
@@ -22,7 +25,10 @@ const FeaturedCatItem = ({ featuredItem }) => {
                 />
               </div>
               <div className="ml-6">
-                <h2 className="text-lg font-bold mb-2">
+                <h2
+                  className="text-lg font-bold mb-2 cursor-pointer"
+                  onClick={() => handleBuyNow(featuredItem.id)}
+                >
                   Featured: {featuredItem.title}
                 </h2>
                 <p className="text-lg font-bold mb-4">

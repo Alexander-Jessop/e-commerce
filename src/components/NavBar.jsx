@@ -1,10 +1,17 @@
+import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import NavBarLink from "./UI/NavBarLink";
 import CartIcon from "./cart/CartIcon";
+import { CartCtx } from "./context/CartContext";
 
 const NavBar = ({ user, logout, toggleModal }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { cartItems } = useContext(CartCtx);
+
+  const cartTotal = cartItems.reduce((curNum, item) => {
+    return curNum + item.quantity;
+  }, 0);
 
   const routes = [
     { path: "/", name: "HOME" },
@@ -75,7 +82,14 @@ const NavBar = ({ user, logout, toggleModal }) => {
             className="rounded-full p-2 cursor-pointer"
             onClick={toggleModal}
           >
-            <CartIcon />
+            <div className="flex flex-row">
+              <CartIcon />
+              {cartItems.length > 0 && (
+                <p className="bg-primary text-selected rounded-full w-4 h-4 text-xs flex items-center justify-center">
+                  {cartTotal}
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </div>

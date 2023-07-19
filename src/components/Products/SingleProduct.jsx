@@ -3,6 +3,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import { FBAuthContext } from "../../firebase/FBAuthProvider";
+import { CartCtx } from "../context/CartContext";
 import ProductReview from "./ProductReview";
 import Button from "../UI/Button";
 
@@ -13,9 +14,21 @@ const SingleProduct = () => {
   const [isInWishlist, setIsInWishlist] = useState(false);
 
   const { user, profile, toggleWishlist } = useContext(FBAuthContext);
+  const { addToCart } = useContext(CartCtx);
   const navigate = useNavigate();
   const location = useLocation();
   const salePrice = location.state?.salePrice;
+
+  const handleAddToCart = (product) => {
+    const item = {
+      id: product.id,
+      name: product.title,
+      price: product.price,
+      quantity: 1,
+    };
+
+    addToCart(item);
+  };
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -100,7 +113,10 @@ const SingleProduct = () => {
                 )}
               </div>
               <div className="flex flex-col lg:flex-row">
-                <Button className="bg-primary hover:bg-secondary text-white py-2 px-4 rounded min-w-[10rem] mb-2 lg:mb-0 lg:mr-2">
+                <Button
+                  className="bg-primary hover:bg-secondary text-white py-2 px-4 rounded min-w-[10rem] mb-2 lg:mb-0 lg:mr-2"
+                  onClick={() => handleAddToCart(product)}
+                >
                   Add to Cart
                 </Button>
                 <Button

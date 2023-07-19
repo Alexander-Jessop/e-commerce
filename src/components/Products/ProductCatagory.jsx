@@ -19,7 +19,7 @@ const ProductCategory = ({ user, catProducts }) => {
     }
   }, [profile]);
 
-  const handleBuyNow = (id) => {
+  const handleNavigate = (id) => {
     navigate(`/product/${id}`);
   };
 
@@ -55,10 +55,16 @@ const ProductCategory = ({ user, catProducts }) => {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-10">
       {catProducts.map((product) => (
         <Card key={product.id} className="w-full h-full">
-          <h2 className="text-xl font-bold mb-4">
+          <h2
+            className="text-xl font-bold mb-4 cursor-pointer"
+            onClick={() => handleNavigate(product.id)}
+          >
             {titleReducer(product.title)}
           </h2>
-          <div className="h-44 overflow-hidden">
+          <div
+            className="h-44 overflow-hidden cursor-pointer"
+            onClick={() => handleNavigate(product.id)}
+          >
             <img
               src={product.image}
               alt={product.title}
@@ -75,7 +81,7 @@ const ProductCategory = ({ user, catProducts }) => {
             <div className="flex flex-col mt-auto">
               <Button
                 className="mt-2 min-w-[10rem]"
-                onClick={() => handleBuyNow(product.id)}
+                onClick={() => handleNavigate(product.id)}
               >
                 View
               </Button>
