@@ -90,8 +90,6 @@ const CartCtxProvider = ({ children }) => {
     totalAmount: cartState.totalAmount,
   };
 
-  console.log("cartItems", CartContext.cartItems);
-
   return <CartCtx.Provider value={CartContext}> {children} </CartCtx.Provider>;
 };
 

@@ -71,7 +71,7 @@ const ProfilePage = () => {
         {wishlistProducts.length > 0 ? (
           wishlistProducts.map((product) => (
             <Card key={product.id}>
-              <div className="flex items-center">
+              <div className="flex items-center flex-col lg:flex-row">
                 <img
                   src={product.image}
                   alt={product.title}

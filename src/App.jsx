@@ -9,6 +9,7 @@ import ProductPage from "./pages/ProductPage";
 import CategoryPage from "./pages/CategoryPage";
 import ProfilePage from "./pages/ProfilePage";
 import Cart from "./components/cart/Cart";
+import CheckoutPage from "./pages/CheckoutPage";
 
 function App() {
   const { user, logout } = useContext(FBAuthContext);
@@ -28,6 +29,7 @@ function App() {
         <Route path="/products/:category" element={<CategoryPage />} />
         <Route path="/user-auth" element={<AccessPage />} />
         <Route path="/user-profile" element={<ProfilePage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
       </Routes>
     </>
   );

@@ -46,8 +46,9 @@ const SingleProduct = () => {
   }, [id]);
 
   useEffect(() => {
+    console.log("profile.wishlist", profile.wishlist);
     setIsInWishlist(
-      user && profile && profile.wishlist && profile.wishlist.includes(id)
+      profile && profile.wishlist && profile.wishlist.includes(+id)
     );
   }, [id, user, profile]);
 
@@ -57,12 +58,7 @@ const SingleProduct = () => {
       setWishListErr(true);
     } else {
       try {
-        if (isInWishlist) {
-          await toggleWishlist(+id, "remove");
-        } else {
-          await toggleWishlist(+id, "add");
-        }
-        setIsInWishlist(!isInWishlist);
+        await toggleWishlist(+id);
       } catch (error) {
         console.error("Error toggling wishlist:", error);
       }
@@ -74,17 +70,14 @@ const SingleProduct = () => {
     const state = { showSignInForm: true, productId };
     navigate("/user-auth", { state });
   };
-  if (!product) {
-    return <div>Loading...</div>;
-  }
 
   if (!product) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="flex items-center justify-center h-screen mt-72 lg:mt-44 xl:mt-0">
-      <div className="container mx-auto p-8">
+    <div className="flex items-center justify-center h-screen mt-36 lg:mt-0">
+      <div className="container p-8 max-w-[80rem]">
         <div className="flex flex-col lg:flex-row max-w-[60rem] mx-auto mb-6">
           <div className="lg:w-1/2 mb-4 lg:mb-0 flex-shrink-0 flex justify-center">
             <img
@@ -140,7 +133,7 @@ const SingleProduct = () => {
           </div>
         </div>
         <div className="text-left">
-          <h2 className="mb-4 ml-2 font-bold text-2xl">Product Reviews</h2>
+          <h2 className="mb-4 font-bold text-2xl">Product Reviews</h2>
           <div className="flex justify-center">
             <ProductReview product={product} />
           </div>

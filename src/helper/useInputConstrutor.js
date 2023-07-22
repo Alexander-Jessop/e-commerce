@@ -5,7 +5,8 @@ const inputConstructor = (
   type,
   placeholder,
   validateValue,
-  additionalProps = {}
+  additionalProps = {},
+  value = null
 ) => {
   const {
     inputValue,
@@ -21,7 +22,7 @@ const inputConstructor = (
     type,
     placeholder,
     key: name,
-    value: inputValue,
+    value: value || inputValue,
     validValue,
     error,
     onChange: inputChangeHandler,

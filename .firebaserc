@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "fashion-e-commerce-2c18d"
-  }
+    "default": "fashion-e-commerce-2c18d",
+    "staging": "fashion-e-commerce-2c18d"
+  },
+  "targets": {},
+  "etags": {}
 }

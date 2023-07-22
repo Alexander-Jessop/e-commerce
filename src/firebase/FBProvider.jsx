@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { initializeFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { getFunctions } from "firebase/functions";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -20,11 +21,12 @@ const db = initializeFirestore(app, {
   experimentalForceLongPolling: true,
 });
 const storage = getStorage(app);
+const functions = getFunctions(app);
 
 export const FBCtx = createContext();
 
 const FBProvider = ({ children }) => {
-  const fBContent = { app, auth, db, storage };
+  const fBContent = { app, auth, db, storage, functions };
 
   return <FBCtx.Provider value={fBContent}>{children}</FBCtx.Provider>;
 };

@@ -1,10 +1,18 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { CartCtx } from "../context/CartContext";
 import Modal from "../Modal";
 import Button from "../UI/Button";
 
 const Cart = ({ toggleModal }) => {
   const { cartItems, addToCart, removeFromCart } = useContext(CartCtx);
+  const navigate = useNavigate();
+
+  const navigateToCheckout = (e) => {
+    e.preventDefault();
+    toggleModal();
+    navigate("/checkout");
+  };
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -93,7 +101,7 @@ const Cart = ({ toggleModal }) => {
               >
                 Close
               </Button>
-              <Button>Checkout</Button>
+              <Button onClick={navigateToCheckout}>Checkout</Button>
             </div>
           </>
         )}
