@@ -55,7 +55,7 @@ const NavBar = ({ user, logout, toggleModal }) => {
               className={`${
                 location.pathname === "/login"
                   ? "border-b-2 border-secondary text-selected"
-                  : "border-b-2 border-transparent hover:border-accent"
+                  : "border-b-2 border-transparent text-white hover:border-accent"
               } sm:mx-6`}
             />
           )}
