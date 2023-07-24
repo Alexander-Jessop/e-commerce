@@ -1,3 +1,4 @@
+/* eslint-disable */
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const stripePackage = require("stripe");
@@ -16,18 +17,7 @@ exports.createPaymentIntent = functions.https.onCall(async (data, context) => {
       );
     }
 
-    const {
-      amount,
-      currency,
-      cardholderName,
-      email,
-      address,
-      city,
-      province,
-      postalCode,
-      country,
-      paymentMethodId,
-    } = data;
+    const { amount, currency, paymentMethodId, receipt_email } = data;
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
@@ -35,25 +25,22 @@ exports.createPaymentIntent = functions.https.onCall(async (data, context) => {
       payment_method: paymentMethodId,
       confirm: true,
       confirmation_method: "manual",
-      billing_details: {
-        name: cardholderName,
-        email,
-        address: {
-          line1: address,
-          city,
-          state: province,
-          postal_code: postalCode,
-          country,
-        },
-      },
+      receipt_email,
+      expand: ["latest_charge"],
     });
 
-    return { clientSecret: paymentIntent.client_secret };
+    const receiptUrl = paymentIntent.latest_charge.receipt_url;
+
+    return {
+      clientSecret: paymentIntent.client_secret,
+      status: paymentIntent.status,
+      receiptUrl,
+    };
   } catch (error) {
     console.error("Error creating payment intent:", error.message);
     throw new functions.https.HttpsError(
-      "internal",
-      "Error creating payment intent"
+      error.code || "internal",
+      error.message || "Error creating payment intent"
     );
   }
 });

@@ -15,7 +15,7 @@ const NavBar = ({ user, logout, toggleModal }) => {
 
   const routes = [
     { path: "/", name: "HOME" },
-    { path: "/place-holder", name: "Place Holder" },
+    // { path: "/place-holder", name: "Place Holder" },
   ];
 
   const handleLogout = async () => {
@@ -40,7 +40,7 @@ const NavBar = ({ user, logout, toggleModal }) => {
                   className={`${
                     location.pathname === route.path
                       ? "border-b-2 border-secondary text-selected"
-                      : "border-b-2 border-transparent hover:border-accent"
+                      : "border-b-2 border-transparent text-white hover:border-accent"
                   } sm:mx-6`}
                 />
               </li>
@@ -67,12 +67,14 @@ const NavBar = ({ user, logout, toggleModal }) => {
                 className={`${
                   location.pathname === "/user-profile"
                     ? "border-b-2 border-secondary text-selected"
-                    : "border-b-2 border-transparent hover:border-accent"
+                    : "border-b-2 border-transparent text-white hover:border-accent"
                 }`}
               />
               <button
                 onClick={handleLogout}
-                className={"border-b-2 border-transparent hover:border-accent"}
+                className={
+                  "border-b-2 border-transparent hover:border-accent text-white"
+                }
               >
                 LOGOUT
               </button>
