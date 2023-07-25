@@ -69,7 +69,7 @@ testing@test.com
 Password:
 
 ```sh
-test1234
+0X3*1bHrz%YLf@&v
 ```
 
 [Back to Table of Contents](#table-of-contents)
