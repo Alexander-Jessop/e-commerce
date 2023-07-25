@@ -46,10 +46,11 @@ const SingleProduct = () => {
   }, [id]);
 
   useEffect(() => {
-    console.log("profile.wishlist", profile.wishlist);
-    setIsInWishlist(
-      profile && profile.wishlist && profile.wishlist.includes(+id)
-    );
+    if (profile && profile.wishlist) {
+      setIsInWishlist(profile.wishlist.includes(+id));
+    } else {
+      setIsInWishlist(false);
+    }
   }, [id, user, profile]);
 
   const handleWishList = async (e) => {
@@ -79,7 +80,7 @@ const SingleProduct = () => {
     <div className="flex items-center justify-center h-screen mt-36 lg:mt-0">
       <div className="container p-8 max-w-[80rem]">
         <div className="flex flex-col lg:flex-row max-w-[60rem] mx-auto mb-6">
-          <div className="lg:w-1/2 mb-4 lg:mb-0 flex-shrink-0 flex justify-center">
+          <div className="lg:w-1/2 mb-4 lg:mb-0 flex-shrink-0 flex justify-center mt-20 lg:mt-0">
             <img
               src={product.image}
               alt={product.title}
