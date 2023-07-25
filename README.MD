@@ -8,8 +8,6 @@
 
 ## Table of Contents
 
----
-
 - [Table of Contents](#table-of-contents)
 - [Installation & Usage](#installation--usage)
 - [Road Map](#road-map)
@@ -72,6 +70,20 @@ Password:
 0X3*1bHrz%YLf@&v
 ```
 
+Purchase with the following test credit card:
+
+```sh
+4242 4242 4242 4242
+```
+
+```sh
+12/34
+```
+
+```sh
+123
+```
+
 [Back to Table of Contents](#table-of-contents)
 
 ---
@@ -80,12 +92,12 @@ Password:
 
 ## Road Map
 
-- [] Add Search Functionality
-- [] Create admin page and analytics
-- [] Revamp UI
-- [] Add stronger error handling and validation
-- [] Add more payment options
-- [] Add more products and categories
+- [ ] Add Search Functionality
+- [ ] Create admin page and analytics
+- [ ] Revamp UI
+- [ ] Add stronger error handling and validation
+- [ ] Add more payment options
+- [ ] Add more products and categories
 
 [Back to Table of Contents](#table-of-contents)
 
